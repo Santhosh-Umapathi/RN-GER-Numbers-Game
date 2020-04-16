@@ -17,16 +17,18 @@ export default class HomeScreen extends Component
 	{
 	return (
 	<View style={styles.containerView}>
-		<Text style={styles.headerText}> Start the Game </Text>
-				
-		<TextInput style={styles.inputStyle} />
-	
+	<Text style={styles.headerText}> Start the Game </Text>
+
+	<View style={styles.cardView}>
+		<TextInput style={styles.inputStyle} placeholder="Enter Number" />
+
 		<View style={styles.buttonView}>
 			<Button title="Reset" onPress={() => {}} style={styles.buttonStyle} />
 			<Button title="Continue" onPress={() => {}} style={styles.buttonStyle} />
 		</View>
 	</View>
-  );
+	</View>
+ );
 	}
 }
 
@@ -62,6 +64,23 @@ const styles = StyleSheet.create({
 	{
 		width: '100%',
 		maxWidth: '80%',
+	},
+	cardView:
+	{
+		//Shadow Settings
+		//iOS Card
+		shadowColor: 'black',
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.25,
+		shadowRadius: 5,
+		//Android Card
+		elevation: 15,
+		//Card View Settings
+		backgroundColor: 'white',
+		marginHorizontal: 10,
+		marginVertical: 10,
+		padding: 10,
+		borderRadius: 10,
 	}
 
 });
