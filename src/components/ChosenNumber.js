@@ -6,18 +6,19 @@ import Card from "../components/Card";
 const ChosenNumber = (props) =>
 {
 
-
 	return (
 		<Card style={styles.cardView}>
 			
-			<Text style={{fontSize: 20}}> Seleted Number</Text>
+			<Text style={{ fontSize: 20 }}> Seleted Number</Text>
+			
 			<View style={styles.numberView}>
 				<Text style={styles.numberStyle}>{props.value}</Text>
-
 			</View>
+			
 			<Button
 				title='Start Game'
 				color={Colors.startGame}
+				onPress={props.nav}
 			/>
 		</Card>
 
@@ -36,7 +37,6 @@ const styles = StyleSheet.create({
   fontWeight: "bold",
  },
 	numberView: {
-		//backgroundColor: "red",
 		margin: 20,
 		padding: 10,
 		borderRadius: 10,

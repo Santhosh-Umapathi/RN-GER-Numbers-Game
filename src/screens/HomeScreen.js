@@ -55,10 +55,18 @@ export default class HomeScreen extends Component {
 
 	confirmedNumber; //Empty Confirmed number declared
 
- render() {
-  if (this.state.confirmed) {
-	  this.confirmedNumber = <ChosenNumber value={this.state.savedVal}/>
-  }
+	render()
+	{
+		if (this.state.confirmed)
+		{
+			this.confirmedNumber = <ChosenNumber
+				value={this.state.savedVal}
+				nav={() => {
+					this.props.navigation.navigate('Game', {userChoice: this.state.savedVal})
+				}}
+				
+			/>
+  		}
 
   return (
    <TouchableWithoutFeedback
