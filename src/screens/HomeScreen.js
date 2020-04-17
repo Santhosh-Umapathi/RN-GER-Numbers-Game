@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TextInput, StyleSheet, View, TouchableOpacity, Button, Flatlist } from 'react-native';
-
+//Colors
+import Colors from "../constants/Colors";
 //Card
 import Card from '../components/Card';
 
@@ -26,8 +27,18 @@ return (
     <TextInput style={styles.inputStyle} placeholder="Enter Number" />
 
     <View style={styles.buttonView}>
-     <Button title="Reset" onPress={() => {}} style={styles.buttonStyle} />
-     <Button title="Continue" onPress={() => {}} style={styles.buttonStyle} />
+		<Button
+			title="Reset"
+			onPress={() => { }}
+			style={styles.buttonStyle}
+			color={Colors.secondaryColor}
+		/>
+		<Button
+			title="Continue"
+			onPress={() => { }}
+			style={styles.buttonStyle}
+			color={Colors.primaryColor}
+		/>
 	</View>
 				
    </Card>
@@ -51,7 +62,7 @@ const styles = StyleSheet.create({
 	{
 		borderRadius: 10,
 		borderWidth: 1,
-		borderColor: 'pink',
+		borderColor: Colors.primaryColor,
 		paddingVertical: 15,
 		paddingHorizontal: 10,
 		margin: 20,
@@ -71,7 +82,7 @@ const styles = StyleSheet.create({
 	},
 	cardView:
 	{
-		 shadowColor: 'pink',	 
+		 shadowColor: Colors.primaryColor,	 
 	}
 
 });
