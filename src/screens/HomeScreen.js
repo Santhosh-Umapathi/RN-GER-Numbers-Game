@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Text, TextInput, StyleSheet, View, TouchableOpacity, Button, Flatlist } from 'react-native'
+import { Text, TextInput, StyleSheet, View, TouchableOpacity, Button, Flatlist } from 'react-native';
+
+//Card
+import Card from '../components/Card';
 
 export default class HomeScreen extends Component
 {
@@ -13,21 +16,22 @@ export default class HomeScreen extends Component
 	}
 
 
-	render()
-	{
-	return (
-	<View style={styles.containerView}>
-	<Text style={styles.headerText}> Start the Game </Text>
+render()
+{
+return (
+  <View style={styles.containerView}>
+   <Text style={styles.headerText}> Start the Game </Text>
 
-	<View style={styles.cardView}>
-		<TextInput style={styles.inputStyle} placeholder="Enter Number" />
+   <Card style={styles.cardView}> 
+    <TextInput style={styles.inputStyle} placeholder="Enter Number" />
 
-		<View style={styles.buttonView}>
-			<Button title="Reset" onPress={() => {}} style={styles.buttonStyle} />
-			<Button title="Continue" onPress={() => {}} style={styles.buttonStyle} />
-		</View>
+    <View style={styles.buttonView}>
+     <Button title="Reset" onPress={() => {}} style={styles.buttonStyle} />
+     <Button title="Continue" onPress={() => {}} style={styles.buttonStyle} />
 	</View>
-	</View>
+				
+   </Card>
+  </View>
  );
 	}
 }
@@ -67,20 +71,7 @@ const styles = StyleSheet.create({
 	},
 	cardView:
 	{
-		//Shadow Settings
-		//iOS Card
-		shadowColor: 'black',
-		shadowOffset: { width: 0, height: 2 },
-		shadowOpacity: 0.25,
-		shadowRadius: 5,
-		//Android Card
-		elevation: 15,
-		//Card View Settings
-		backgroundColor: 'white',
-		marginHorizontal: 10,
-		marginVertical: 10,
-		padding: 10,
-		borderRadius: 10,
+		 shadowColor: 'pink',	 
 	}
 
 });
