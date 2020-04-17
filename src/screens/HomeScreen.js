@@ -8,13 +8,13 @@ import {
  Flatlist,
  TouchableWithoutFeedback,
  Keyboard,
+ Alert,
 } from "react-native";
-//Colors
+//Components
 import Colors from "../constants/Colors";
-//Card
 import Card from "../components/Card";
-//TextInput
 import TextField from "../components/TextField";
+import ChosenNumber from '../components/ChosenNumber';
 
 export default class HomeScreen extends Component {
  constructor(props) {
@@ -35,27 +35,29 @@ export default class HomeScreen extends Component {
 
  //Reset Number
  resetHandler = () => {
-  this.setState({ inputVal: "", confirmed: false });
+  this.setState({ inputVal: "", confirmed: false, savedVal:null });
  };
 
  //Confirm Number
  confirmHandler = () => {
   const chosenNumber = parseInt(this.state.inputVal);
-  if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99) {
-   return;
+  if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+	  Alert.alert("Invalid Number!", "Enter a Number between 0 - 99", [{ text: 'ok', style: 'destructive', onPress: this.resetHandler }]);
+	  return;
   }
   this.setState({
    confirmed: true,
    inputVal: "",
    savedVal: chosenNumber,
   });
+	 Keyboard.dismiss();
  };
 
 	confirmedNumber; //Empty Confirmed number declared
 
  render() {
   if (this.state.confirmed) {
-   this.confirmedNumber = <Text> Chosen Number is: {this.state.savedVal}</Text>;
+	  this.confirmedNumber = <ChosenNumber value={this.state.savedVal}/>
   }
 
   return (
