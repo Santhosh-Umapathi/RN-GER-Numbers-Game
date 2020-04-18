@@ -4,7 +4,8 @@ import {
  Text,
  StyleSheet,
  Button,
- Alert,
+  Alert,
+ FlatList
 } from "react-native";
 //Components
 import Card from "../components/Card";
@@ -32,10 +33,12 @@ const GameScreen = ({navigation}) =>
   //Getting param from home screen
   const userChoice = navigation.getParam('userChoice');
 
-  //States
-  const [currentRN, setCurrentRN] = useState(generateRN(1, 100, userChoice));
+  const initialGuess = generateRN(1, 100, userChoice);
 
-  const [rounds, setRounds] = useState(0)
+  //States
+  const [currentRN, setCurrentRN] = useState(initialGuess);
+  //const [rounds, setRounds] = useState(0)
+  const [pastGuess, setPastGuess] = useState([initialGuess]);
 
   //Refs - used to store values even after rerender
   const currentLow = useRef(1);
@@ -45,7 +48,7 @@ const GameScreen = ({navigation}) =>
   useEffect(() => {
     if (currentRN === userChoice)
     {
-      navigation.navigate("Over", { rounds: rounds, userChoice: userChoice });
+      navigation.navigate("Over", { rounds: pastGuess.length, userChoice: userChoice });
     }
   }, [currentRN])
  
@@ -70,7 +73,8 @@ const GameScreen = ({navigation}) =>
   }
 	const nextNum = generateRN(currentLow.current,currentHigh.current,currentRN);
    setCurrentRN(nextNum);
-   setRounds(rounds => rounds + 1);
+   //setRounds(rounds => rounds + 1);
+   setPastGuess(pstGuess => [nextNum, ...pstGuess]);
  };
 
  
@@ -102,7 +106,20 @@ const GameScreen = ({navigation}) =>
        style={styles.buttonStyle}
       />
      </View>
-    </Card>
+      </Card>
+      <FlatList
+        data={pastGuess}
+        keyExtractor={key => `${(Math.floor(Math.random() * 999))}`}
+        contentContainerStyle = {styles.flatliststyle}
+        renderItem={({item, index}) => 
+        {
+          return (
+            <View>
+              <Text> Round {index + 1} - {item}</Text>
+            </View>
+          )
+        }}
+      />
    </View>
   );
  }
@@ -131,7 +148,13 @@ const styles = StyleSheet.create({
   borderRadius: 10,
   alignSelf: "center",
   padding: 15,
- },
+  },
+ flatliststyle:{
+   alignItems: 'center',
+   justifyContent: 'flex-end',
+   flex: 1,
+   marginBottom: 20
+ }
 });
 
 GameScreen.navigationOptions = ({ navigation }) =>

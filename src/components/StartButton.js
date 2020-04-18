@@ -5,7 +5,7 @@ import Colors from '../constants/Colors';
 //MARK: --------------------	Start Button	-----------------------
 const StartButton = ({ children, onPress }) => {
  return (
-  <TouchableOpacity onPress={onPress}>
+  <TouchableOpacity onPress={onPress} activeOpacity= {0.7} >
    <View style={styles.containerView}>
     <Text style={styles.text}>{children}</Text>
    </View>
