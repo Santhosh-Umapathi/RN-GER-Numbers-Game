@@ -45,7 +45,7 @@ const GameScreen = ({navigation}) =>
   useEffect(() => {
     if (currentRN === userChoice)
     {
-      navigation.navigate('Over', {rounds:rounds})
+      navigation.navigate("Over", { rounds: rounds, userChoice: userChoice });
     }
   }, [currentRN])
  
@@ -76,7 +76,14 @@ const GameScreen = ({navigation}) =>
  
   return (
    <View style={styles.containerView}>
-    <Text style={{ fontSize: 25, alignSelf: "center", marginTop: 10 }}>
+    <Text
+     style={{
+      fontSize: 25,
+      alignSelf: "center",
+      marginTop: 10,
+      fontFamily: "open-sans",
+     }}
+    >
      Opponent's Guess
     </Text>
 
@@ -86,12 +93,12 @@ const GameScreen = ({navigation}) =>
      <View style={styles.buttonView}>
       <Button
        title="Lower"
-       onPress={()=> nextNumberHandler('lower')}
+       onPress={() => nextNumberHandler("lower")}
        style={styles.buttonStyle}
       />
       <Button
        title="Greater"
-       onPress={ ()=> nextNumberHandler('greater')}
+       onPress={() => nextNumberHandler("greater")}
        style={styles.buttonStyle}
       />
      </View>

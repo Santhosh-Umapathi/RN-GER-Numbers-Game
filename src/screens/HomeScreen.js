@@ -95,7 +95,9 @@ const HomeScreen = ({navigation}) =>
 
   return (
    <TouchableWithoutFeedback
-    onPress={() => { Keyboard.dismiss() }}
+    onPress={() => {
+     Keyboard.dismiss();
+    }}
    >
     <View style={styles.containerView}>
      <Text style={styles.headerText}> Start the Game </Text>
@@ -106,6 +108,7 @@ const HomeScreen = ({navigation}) =>
         fontSize: 20,
         textAlign: "center",
         marginVertical: 10,
+        fontFamily: "open-sans",
        }}
       >
        Enter a Number
