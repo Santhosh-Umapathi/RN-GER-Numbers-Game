@@ -13,13 +13,39 @@ import Colors from "../constants/Colors";
 import Card from "../components/Card";
 import TextField from "../components/TextField";
 import ChosenNumber from '../components/ChosenNumber';
+//Fonts
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+
+
+const fetchFonts = async() => {
+    await Font.loadAsync({
+        'open-sans': require('../../assets/fonts/OpenSans-Regular.ttf'),
+        'open-sans-bold':require('../../assets/fonts/OpenSans-Bold.ttf')
+    })
+}
+
+
 
 const HomeScreen = ({navigation}) =>
 {
     
-const [inputVal, setInputVal] = useState("")
-const [confirmed, setConfirmed] = useState(false)
-const [savedVal, setSavedVal] = useState(null)
+    const [inputVal, setInputVal] = useState("")
+    const [confirmed, setConfirmed] = useState(false)
+    const [savedVal, setSavedVal] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
+
+
+
+    if (isLoading)
+    {
+        return <AppLoading
+            startAsync={fetchFonts}
+            onFinish={() => { setIsLoading(false) }}
+            onError = {(error) => console.log(error)}
+        />
+    }
+
 
     //Handle Input with only number, no special chars
     const inputHandler = (inputText) =>
@@ -120,7 +146,8 @@ const styles = StyleSheet.create({
  headerText: {
   fontSize: 30,
   textAlign: "center",
-  marginTop: 20,
+     marginTop: 20,
+  fontFamily:'open-sans-bold'
  },
  inputStyle: {
   width: 40,
