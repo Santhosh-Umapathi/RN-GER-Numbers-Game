@@ -26,18 +26,28 @@ const generateRN = (min, max, exclude) =>
   }
 };
 
-const GameScreen = ( props) =>
+const GameScreen = ({navigation}) =>
 {
 
+  //Getting param from home screen
+  const userChoice = navigation.getParam('userChoice');
 
-  const userChoice = props.navigation.getParam('userChoice');
-
-  
+  //States
   const [currentRN, setCurrentRN] = useState(generateRN(1, 100, userChoice));
 
+  const [rounds, setRounds] = useState(0)
+
+  //Refs - used to store values even after rerender
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
 
+  //called when ever the currentRN changes
+  useEffect(() => {
+    if (currentRN === userChoice)
+    {
+      navigation.navigate('Over', {rounds:rounds})
+    }
+  }, [currentRN])
  
 
  nextNumberHandler = (valueType) => {
@@ -59,7 +69,8 @@ const GameScreen = ( props) =>
       currentLow.current = currentRN;
   }
 	const nextNum = generateRN(currentLow.current,currentHigh.current,currentRN);
-  setCurrentRN(nextNum);
+   setCurrentRN(nextNum);
+   setRounds(rounds => rounds + 1);
  };
 
  

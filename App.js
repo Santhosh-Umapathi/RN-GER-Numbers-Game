@@ -2,11 +2,13 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import GameScreen from './src/screens/GameScreen';
+import GameOverScreen from './src/screens/GameOverScreen';
 
 const MainNavigator = createStackNavigator(
 {
     Home: HomeScreen,
     Game: GameScreen,
+    Over: GameOverScreen,
 },
 {
   initialRouteName: 'Home',

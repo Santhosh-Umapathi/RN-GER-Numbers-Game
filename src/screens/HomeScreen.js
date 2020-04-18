@@ -49,7 +49,12 @@ const [savedVal, setSavedVal] = useState(null)
 	    Keyboard.dismiss();
     };
 
-	let confirmedNumber; //Empty Confirmed number declared
+    let confirmedNumber; //Empty Confirmed number declared
+    
+    navigation.addListener('willFocus', () => {
+        setConfirmed(false);
+    }
+    )
 
 	
     if (confirmed)
