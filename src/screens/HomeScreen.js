@@ -1,11 +1,9 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {
  Text,
  StyleSheet,
  View,
- TouchableOpacity,
  Button,
- Flatlist,
  TouchableWithoutFeedback,
  Keyboard,
  Alert,
@@ -16,63 +14,57 @@ import Card from "../components/Card";
 import TextField from "../components/TextField";
 import ChosenNumber from '../components/ChosenNumber';
 
-export default class HomeScreen extends Component {
- constructor(props) {
-  super(props);
-  this.state = {
-   inputVal: "",
-   confirmed: false,
-   savedVal: null,
-  };
- }
+const HomeScreen = ({navigation}) =>
+{
+    
+const [inputVal, setInputVal] = useState("")
+const [confirmed, setConfirmed] = useState(false)
+const [savedVal, setSavedVal] = useState(null)
 
- //Handle Input with only number, no special chars
- inputHandler = (inputText) => {
-  this.setState({
-   inputVal: inputText.replace(/[^0-9]/g, ""),
-  });
- };
+    //Handle Input with only number, no special chars
+    const inputHandler = (inputText) =>
+    {
+        setInputVal(inputText.replace(/[^0-9]/g, ""))
+    };
 
- //Reset Number
- resetHandler = () => {
-  this.setState({ inputVal: "", confirmed: false, savedVal:null });
- };
+    //Reset Number
+    const resetHandler = () =>
+    {
+        setInputVal('');
+        setConfirmed(false);
+        setSavedVal(null)
+    };
 
- //Confirm Number
- confirmHandler = () => {
-  const chosenNumber = parseInt(this.state.inputVal);
-  if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
-	  Alert.alert("Invalid Number!", "Enter a Number between 0 - 99", [{ text: 'ok', style: 'destructive', onPress: this.resetHandler }]);
-	  return;
-  }
-  this.setState({
-   confirmed: true,
-   inputVal: "",
-   savedVal: chosenNumber,
-  });
-	 Keyboard.dismiss();
- };
+    //Confirm Number
+    const confirmHandler = () =>
+    {
+        const chosenNumber = parseInt(inputVal);
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+	        Alert.alert("Invalid Number!", "Enter a Number between 0 - 99", [{ text: 'ok', style: 'destructive', onPress: resetHandler }]);
+	        return;
+        }
+        setInputVal("");
+        setConfirmed(true);
+        setSavedVal(chosenNumber);
+	    Keyboard.dismiss();
+    };
 
-	confirmedNumber; //Empty Confirmed number declared
+	let confirmedNumber; //Empty Confirmed number declared
 
-	render()
-	{
-		if (this.state.confirmed)
-		{
-			this.confirmedNumber = <ChosenNumber
-				value={this.state.savedVal}
-				nav={() => {
-					this.props.navigation.navigate('Game', {userChoice: this.state.savedVal})
-				}}
-				
-			/>
-  		}
+	
+    if (confirmed)
+    {
+        confirmedNumber = <ChosenNumber
+            value={savedVal}
+            nav={() => {
+                navigation.navigate('Game', {userChoice: savedVal})
+            }}
+        />
+    }
 
   return (
    <TouchableWithoutFeedback
-    onPress={() => {
-     Keyboard.dismiss();
-    }}
+    onPress={() => { Keyboard.dismiss() }}
    >
     <View style={styles.containerView}>
      <Text style={styles.headerText}> Start the Game </Text>
@@ -91,30 +83,30 @@ export default class HomeScreen extends Component {
        keyboardType="number-pad"
        blurOnSubmit
        maxLength={2}
-       onChangeText={(inputText) => this.inputHandler(inputText)}
-       value={this.state.inputVal}
+       onChangeText={(inputText) => inputHandler(inputText)}
+       value={inputVal}
       />
       <View style={styles.buttonView}>
        <Button
         title="Reset"
-        onPress={this.resetHandler}
+        onPress={resetHandler}
         style={styles.buttonStyle}
         color={Colors.secondaryColor}
        />
        <Button
         title="Continue"
-        onPress={this.confirmHandler}
+        onPress={confirmHandler}
         style={styles.buttonStyle}
         color={Colors.primaryColor}
        />
       </View>
      </Card>
-     {this.confirmedNumber}
+     {confirmedNumber}
     </View>
    </TouchableWithoutFeedback>
   );
  }
-}
+
 
 const styles = StyleSheet.create({
  containerView: {
@@ -143,3 +135,5 @@ const styles = StyleSheet.create({
   shadowColor: Colors.primaryColor,
  },
 });
+
+export default HomeScreen;

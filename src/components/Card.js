@@ -2,9 +2,9 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 
+//MARK: --------------------	Card	-----------------------
 const Card = (props) =>
 {
-	//MARK: --------------------	Card	-----------------------
 	return (
 		<View style={{...styles.cardView, ...props.style}}>
 			{props.children}

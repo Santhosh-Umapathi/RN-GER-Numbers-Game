@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button  } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import Colors from "../constants/Colors";
 import Card from "../components/Card";
 
+//MARK: --------------------	Start Game	-----------------------
 const ChosenNumber = (props) =>
 {
-
 	return (
 		<Card style={styles.cardView}>
 			
@@ -21,29 +21,30 @@ const ChosenNumber = (props) =>
 				onPress={props.nav}
 			/>
 		</Card>
-
  );
 };
 
 const styles = StyleSheet.create({
- cardView: {
-  shadowColor: Colors.primaryColor,
-		alignItems: "center",
-		justifyContent: 'center',
-		alignSelf:'center'
- },
- numberStyle: {
+cardView:
+{
+  	shadowColor: Colors.primaryColor,
+	alignItems: "center",
+	justifyContent: 'center',
+	alignSelf:'center'
+},
+numberStyle:
+{
   fontSize: 35,
   fontWeight: "bold",
  },
-	numberView: {
-		margin: 20,
-		padding: 10,
-		borderRadius: 10,
-		borderWidth: 0.5,
-		borderColor: Colors.secondaryColor
-	},
- 
+numberView:
+{
+	margin: 20,
+	padding: 10,
+	borderRadius: 10,
+	borderWidth: 0.5,
+	borderColor: Colors.secondaryColor
+},
 });
 
 export default ChosenNumber;
