@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Modal, Image, Dimensions } from 'react-native';
 import { ScreenOrientation } from 'expo';
 
+import ResetButton from '../components/ResetButton';
+
 const GameOverScreen = ({navigation}) =>
 {
 	const rounds = navigation.getParam('rounds')
@@ -15,26 +17,27 @@ const GameOverScreen = ({navigation}) =>
   <View style={styles.containerView}>
    <Text style={styles.text}>Game Over</Text>
    <View style={styles.imageView}>
-        <Image
-          //fadeDuration={300} //milliseconds
+    <Image
+     //fadeDuration={300} //milliseconds
      source={require("../../assets/success.png")}
      resizeMode="stretch"
      style={{ width: "100%", height: "100%" }}
     />
    </View>
    <Text style={{ margin: 5 }}>
-		Rounds - {""}
-		<Text style={{ color: "red", margin: 5 }}>{rounds}</Text>
-		{"  "}
-		Your Choice was - {""}
-		<Text style={{ color: "red", margin: 5 }}>{userChoice}</Text>
+    Rounds - {""}
+    <Text style={{ color: "red", margin: 5 }}>{rounds}</Text>
+    {"  "}
+    Your Choice was - {""}
+    <Text style={{ color: "red", margin: 5 }}>{userChoice}</Text>
    </Text>
-   <Button
-    title="Restart Game"
+   <ResetButton
     onPress={() => {
      navigation.popToTop();
     }}
-   />
+   >
+    <Text>Restart Game</Text>
+   </ResetButton>
   </View>
   //</Modal>
  );
