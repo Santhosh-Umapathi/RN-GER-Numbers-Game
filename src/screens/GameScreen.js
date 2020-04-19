@@ -5,7 +5,8 @@ import {
  StyleSheet,
  Button,
   Alert,
- FlatList
+ FlatList,
+ Dimensions
 } from "react-native";
 //Components
 import Card from "../components/Card";
@@ -39,6 +40,28 @@ const GameScreen = ({navigation}) =>
   const [currentRN, setCurrentRN] = useState(initialGuess);
   //const [rounds, setRounds] = useState(0)
   const [pastGuess, setPastGuess] = useState([initialGuess]);
+const [widthLayout, setwidthLayout] = useState(
+ Dimensions.get("window").width);
+  const [heightLayout, setheightLayout] = useState(
+    Dimensions.get("window").height);
+
+//Runs whenever Dimensions changes and updates state
+//Used for fixing orientation changes and layout change
+//Dimensions runs only once in app lifecycle
+useEffect(() => {
+ const useLayout = () => {
+   setwidthLayout(Dimensions.get("window").width);
+    setheightLayout(Dimensions.get("window").height);
+ };
+ Dimensions.addEventListener("change", useLayout);
+
+ return () => {
+  //cleanup before running useEffect call function
+  Dimensions.removeEventListener("change", useLayout);
+ };
+})
+
+
 
   //Refs - used to store values even after rerender
   const currentLow = useRef(1);
@@ -77,6 +100,54 @@ const GameScreen = ({navigation}) =>
    setPastGuess(pstGuess => [nextNum, ...pstGuess]);
  };
 
+  if (heightLayout < 350)
+  {
+    return (
+     <View style={styles.containerView}>
+      <Text
+       style={{
+        fontSize: 25,
+        alignSelf: "center",
+        marginTop: 10,
+        fontFamily: "open-sans",
+       }}
+      >
+       Opponent's Guess
+      </Text>
+
+        <View style={styles.buttonView}>
+          <Button
+          title="Lower"
+          onPress={() => nextNumberHandler("lower")}
+          style={{width: widthLayout}}
+          />
+          
+          <Text style={styles.textStyle}>{currentRN}</Text>
+  
+          <Button
+          title="Greater"
+          onPress={() => nextNumberHandler("greater")}
+          style={{width: widthLayout}}
+          />
+       </View>
+      <FlatList
+       data={pastGuess}
+       keyExtractor={(key) => `${Math.floor(Math.random() * 999)}`}
+       contentContainerStyle={styles.flatliststyle}
+       renderItem={({ item, index }) => {
+        return (
+         <View>
+          <Text>
+           {" "}
+           Round {index + 1} - {item}
+          </Text>
+         </View>
+        );
+       }}
+      />
+     </View>
+    );
+  }
  
   return (
    <View style={styles.containerView}>
@@ -98,12 +169,12 @@ const GameScreen = ({navigation}) =>
       <Button
        title="Lower"
        onPress={() => nextNumberHandler("lower")}
-       style={styles.buttonStyle}
+       style={{width: widthLayout}}
       />
       <Button
        title="Greater"
        onPress={() => nextNumberHandler("greater")}
-       style={styles.buttonStyle}
+       style={{width: widthLayout}}
       />
      </View>
       </Card>
@@ -135,10 +206,10 @@ const styles = StyleSheet.create({
   alignItems: "center",
   margin: 10,
  },
- buttonStyle: {
-  width: "100%",
-  minWidth: "80%",
- },
+//  buttonStyle: {
+//   width: "100%",
+//   minWidth: "80%",
+//  },
  textStyle: {
   fontSize: 30,
   textAlign: "center",

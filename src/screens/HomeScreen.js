@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
  Text,
  StyleSheet,
@@ -7,6 +7,8 @@ import {
  TouchableWithoutFeedback,
  Keyboard,
  Alert,
+ Dimensions,
+    KeyboardAvoidingView,
 } from "react-native";
 //Components
 import Colors from "../constants/Colors";
@@ -16,6 +18,7 @@ import ChosenNumber from '../components/ChosenNumber';
 //Fonts
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 const fetchFonts = async() => {
@@ -34,6 +37,24 @@ const HomeScreen = ({navigation}) =>
     const [confirmed, setConfirmed] = useState(false)
     const [savedVal, setSavedVal] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
+    const [buttonLayout, setButtonLayout] = useState(Dimensions.get("window").width / 4);
+
+
+
+    //Runs whenever Dimensions changes and updates state
+    //Used for fixing orientation changes and layout change
+    //Dimensions runs only once in app lifecycle
+    useEffect(() => {
+        const useLayout = () => {
+            setButtonLayout(Dimensions.get("window").width / 4)
+        }
+        Dimensions.addEventListener('change', useLayout)
+        
+        return () =>
+        {   //cleanup before running useEffect call function
+            Dimensions.removeEventListener('change', useLayout)
+        }
+    })
 
 
 
@@ -93,52 +114,56 @@ const HomeScreen = ({navigation}) =>
         />
     }
 
-  return (
-   <TouchableWithoutFeedback
-    onPress={() => {
-     Keyboard.dismiss();
-    }}
-   >
-    <View style={styles.containerView}>
-     <Text style={styles.headerText}> Start the Game </Text>
+    return (
+     <ScrollView>
+      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30}>
+       <TouchableWithoutFeedback
+        onPress={() => {
+         Keyboard.dismiss();
+        }}
+       >
+        <View style={styles.containerView}>
+         <Text style={styles.headerText}> Start the Game </Text>
 
-     <Card style={styles.cardView}>
-      <Text
-       style={{
-        fontSize: 20,
-        textAlign: "center",
-        marginVertical: 10,
-        fontFamily: "open-sans",
-       }}
-      >
-       Enter a Number
-      </Text>
-      <TextField
-       keyboardType="number-pad"
-       blurOnSubmit
-       maxLength={2}
-       onChangeText={(inputText) => inputHandler(inputText)}
-       value={inputVal}
-      />
-      <View style={styles.buttonView}>
-       <Button
-        title="Reset"
-        onPress={resetHandler}
-        style={styles.buttonStyle}
-        color={Colors.secondaryColor}
-       />
-       <Button
-        title="Continue"
-        onPress={confirmHandler}
-        style={styles.buttonStyle}
-        color={Colors.primaryColor}
-       />
-      </View>
-     </Card>
-     {confirmedNumber}
-    </View>
-   </TouchableWithoutFeedback>
-  );
+         <Card style={styles.cardView}>
+          <Text
+           style={{
+            fontSize: 20,
+            textAlign: "center",
+            marginVertical: 10,
+            fontFamily: "open-sans",
+           }}
+          >
+           Enter a Number
+          </Text>
+          <TextField
+           keyboardType="number-pad"
+           blurOnSubmit
+           maxLength={2}
+           onChangeText={(inputText) => inputHandler(inputText)}
+           value={inputVal}
+          />
+          <View style={styles.buttonView}>
+           <Button
+            title="Reset"
+            onPress={resetHandler}
+            style={{ width: buttonLayout }}
+            color={Colors.secondaryColor}
+           />
+           <Button
+            title="Continue"
+            onPress={confirmHandler}
+            style={{ width: buttonLayout }} //From state
+            color={Colors.primaryColor}
+           />
+          </View>
+         </Card>
+         {confirmedNumber}
+        </View>
+       </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+     </ScrollView>
+    );
  }
 
 
@@ -149,8 +174,8 @@ const styles = StyleSheet.create({
  headerText: {
   fontSize: 30,
   textAlign: "center",
-     marginTop: 20,
-  fontFamily:'open-sans-bold'
+  marginTop: Dimensions.get("window").height > 600 ? 40 : 10, //Based on device size
+  fontFamily: "open-sans-bold",
  },
  inputStyle: {
   width: 40,
@@ -159,13 +184,14 @@ const styles = StyleSheet.create({
   flexDirection: "row",
   justifyContent: "space-around",
   alignItems: "center",
-  marginTop: 20,
-  marginBottom: 10,
+  marginTop: Dimensions.get("window").height > 600 ? 30 : 10,
+  marginBottom: Dimensions.get("window").height > 600 ? 30 : 5,
  },
- buttonStyle: {
-  width: "100%",
-  maxWidth: "80%",
- },
+//  buttonStyle: {
+//   //   width: "100%",
+//   //   maxWidth: "80%",
+//   width: Dimensions.get("window").width / 4,
+//  },
  cardView: {
   shadowColor: Colors.primaryColor,
  },

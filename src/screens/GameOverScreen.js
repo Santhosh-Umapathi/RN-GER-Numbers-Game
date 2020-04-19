@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Modal, Image  } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Modal, Image, Dimensions  } from 'react-native';
 
 const GameOverScreen = ({navigation}) =>
 {
@@ -53,17 +53,16 @@ const styles = StyleSheet.create({
  text: {
   fontSize: 30,
   fontFamily: "open-sans",
-	},
-	imageView:
-	{
-		borderRadius: 150,
-		borderWidth: 1,
-		borderColor:'pink',
-		height: 300,
-		width: 300,
-		overflow: 'hidden',
-		margin: 20
- }
+ },
+ imageView: {
+  borderRadius: Dimensions.get("window").width > 350 ? 150 : 75,
+  borderWidth: 1,
+  borderColor: "pink",
+  height: Dimensions.get("window").width > 350 ? 300 : 150,
+  width: Dimensions.get("window").width > 350 ? 300 : 150,
+  overflow: "hidden",
+   margin: Dimensions.get("window").width > 350 ? 20 : 5,
+ },
 });
 
 export default GameOverScreen;
