@@ -4,6 +4,9 @@ import HomeScreen from './src/screens/HomeScreen';
 import GameScreen from './src/screens/GameScreen';
 import GameOverScreen from './src/screens/GameOverScreen';
 
+//Platform
+import { Platform } from 'react-native';
+
 const MainNavigator = createStackNavigator(
 {
     Home: HomeScreen,
@@ -18,7 +21,7 @@ const MainNavigator = createStackNavigator(
     headerTintColor: 'white', //Header button colors
     headerStyle:
     {
-      backgroundColor: 'pink' // header bg color
+      backgroundColor: Platform.OS === 'ios' ? 'lightblue' : 'pink' // header bg color
     },
     headerTitleStyle: 
     {

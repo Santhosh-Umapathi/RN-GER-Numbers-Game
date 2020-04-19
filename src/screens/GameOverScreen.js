@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Modal, Image, Dimensions  } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Button, Modal, Image, Dimensions } from 'react-native';
+import { ScreenOrientation } from 'expo';
 
 const GameOverScreen = ({navigation}) =>
 {
 	const rounds = navigation.getParam('rounds')
-	const userChoice = navigation.getParam("userChoice");
+  const userChoice = navigation.getParam("userChoice");
+  
+  //To Detect the screen orientation directly instead of Dimensions
+  //ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT)
 
 	return (
   //<Modal animationType='slide'>

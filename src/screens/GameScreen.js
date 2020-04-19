@@ -6,7 +6,8 @@ import {
  Button,
   Alert,
  FlatList,
- Dimensions
+ Dimensions,
+ Platform
 } from "react-native";
 //Components
 import Card from "../components/Card";
@@ -162,7 +163,7 @@ useEffect(() => {
      Opponent's Guess
     </Text>
 
-    <Text style={styles.textStyle}>{currentRN}</Text>
+    <Text style={{...styles.textStyleBase, ...Platform.select({ios: styles.textIOS, android:styles.textAndroid})}}>{currentRN}</Text>
 
     <Card style={{ marginHorizontal: 60 }}>
      <View style={styles.buttonView}>
@@ -206,26 +207,31 @@ const styles = StyleSheet.create({
   alignItems: "center",
   margin: 10,
  },
-//  buttonStyle: {
-//   width: "100%",
-//   minWidth: "80%",
-//  },
- textStyle: {
+ //  buttonStyle: {
+ //   width: "100%",
+ //   minWidth: "80%",
+ //  },
+ textStyleBase: {
   fontSize: 30,
   textAlign: "center",
   margin: 10,
-  borderColor: Colors.primaryColor,
   borderWidth: 1,
   borderRadius: 10,
   alignSelf: "center",
   padding: 15,
-  },
- flatliststyle:{
-   alignItems: 'center',
-   justifyContent: 'flex-end',
-   flex: 1,
-   marginBottom: 20
- }
+ },
+ textIOS: {
+  borderColor: 'blue',
+ },
+ textAndroid: {
+  borderColor: Colors.primaryColor,
+ },
+ flatliststyle: {
+  alignItems: "center",
+  justifyContent: "flex-end",
+  flex: 1,
+  marginBottom: 20,
+ },
 });
 
 GameScreen.navigationOptions = ({ navigation }) =>
