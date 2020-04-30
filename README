@@ -1,0 +1,81 @@
+MARK: Topics Covered
+
+App.JSON to change device orientation
+
+------------------------------------------------------------------
+Mark: Components Folder
+
+MARK: Card
+- styles object passed to props as spread operator {{...styles.a, ...prop.style}}, props passed from children overwrites the props
+- iOS Shadow, Android Shadow Cards
+- Colors Constant used
+- Card View wrapper for all children, children passed inside will be wrapped with this view
+
+Mark: Chosen Number
+- View+Text wrapper with children passed inside text. Parent can pass any string to get wrapped with this wrapper
+
+MARK: Reset Button Android
+- Platform version based Touchable Native Feedback [activeOpacity prop used]
+- Overflow (To hide anything overflows from parent view)
+- children prop passed into text
+
+MARK: Reset Button iOS
+- Platform based Touchable Opacity [activeOpacity prop used]
+- children prop passed into text
+
+MARK: Start Button iOS
+- Platform OS & Version based Touchable Opacity/Touchable Native Feedback [activeOpacity prop used]
+
+MARK: TextField
+- styles object passed to props as spread operator {{...styles.a, ...prop.style}}, props passed from children overwrites the props
+- Passing default props from parent-children to customize directly from parent <TextInput {...props} />
+- Blur on Submit , maxLength
+
+------------------------------------------------------------------
+MARK: Constants Folder
+
+Mark: Colors
+- Colors Constant
+- Colors exported as default JS object
+- key value pairs inside JS Object
+- File name used to declare in other files
+
+Mark: Styles
+- Styles Constant
+- StyleSheet object exported as default
+- File name used to declare in other files
+
+------------------------------------------------------------------
+MARK: Home Screen
+
+- Loading custom fonts
+- Apploading feature from Expo, (StartAsync, onFinish, onError)
+- .replace = Input handler for decimal replace (Replace anything other than 0-9 globally with empty string)
+- Touchable without feedback and Keyboard dismiss to dismiss keyboard on out touch
+- parseInt , Convert string to integer
+- NaN Check, Not A Number
+- Custom Alert with Buttons
+- Empty Constant declared and displayed value if true
+- Dimensions, based on device size, using ternary expression (Dimensions.get("window").height > 600 ? 40 : 10)
+- Keyboard Avoiding View = position/padding iOS/Android.
+- Add/remove event listners inside use effect, for recalculate dimensions based on orientation, cleanup to remove listners for avoid memory leak, Dimensions with State
+- Platform OS check to assign colors or anyother styles
+
+------------------------------------------------------------------
+MARK: Game Screen
+
+- Recursion function, same function within a function
+- useRef Hooks, persist/stores value in memory even after re-render
+- useEffect Hooks, run after every render cycle. (Component did mount), Has side effects dependencies to run only when side effects changes
+- props Destructuring = const {a,b} = props;
+- FlexGrow - grow eventually when list grows more.
+- Platform.Select to merge styles into base style and customize based on iOS/Android
+- Rendering different layouts based on device size
+
+------------------------------------------------------------------
+MARK: Game Over Screen
+
+- Image props - Resize Mode, fadeDuration
+- Nested Text Components to customize text style in same line 
+- Expo screen orientation to lock the screen orientation on specific page.
+- Creating 2 files for button iOS/Android and import with default name. React takes the iOS/Android file automatically

@@ -5,8 +5,6 @@ import Colors from '../constants/Colors';
 //MARK: --------------------	Start Button	-----------------------
 const StartButton = ({ children, onPress }) => {
 
-
-
 	let ButtonPlatform = TouchableOpacity;
 
 	if (Platform.OS === 'android' && Platform.Version > 21)
@@ -16,24 +14,24 @@ const StartButton = ({ children, onPress }) => {
 
 
 	return (
-  <View style={styles.parentView}>
-   <ButtonPlatform onPress={onPress} activeOpacity={0.7}>
-    <View style={styles.containerView}>
-     <Text style={styles.text}>{children}</Text>
-    </View>
-   </ButtonPlatform>
-  </View>
- );
-};
+		<View style={styles.parentView}>
+			<ButtonPlatform onPress={onPress} activeOpacity={0.7}>
+			<View style={styles.containerView}>
+				<Text style={styles.text}>{children}</Text>
+			</View>
+			</ButtonPlatform>
+		</View>
+		);
+	};
 
 const styles = StyleSheet.create({
-	parentView: {
+	parentView:
+	{
 		borderRadius: 20,
-	overflow: 'hidden'	
+		overflow: 'hidden'	
 	},
 	containerView:
-	{
-		
+	{	
 		backgroundColor: Colors.secondaryColor,
 		borderRadius: 20,
 		paddingHorizontal: 20,

@@ -8,7 +8,9 @@ import {
  Keyboard,
  Alert,
  Dimensions,
-    KeyboardAvoidingView,
+ KeyboardAvoidingView,
+ ScrollView,
+ Platform,
 } from "react-native";
 //Components
 import Colors from "../constants/Colors";
@@ -18,10 +20,10 @@ import ChosenNumber from '../components/ChosenNumber';
 //Fonts
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import { ScrollView } from "react-native-gesture-handler";
 
 
-const fetchFonts = async() => {
+const fetchFonts = async () =>
+{
     await Font.loadAsync({
         'open-sans': require('../../assets/fonts/OpenSans-Regular.ttf'),
         'open-sans-bold':require('../../assets/fonts/OpenSans-Bold.ttf')
@@ -29,19 +31,15 @@ const fetchFonts = async() => {
 }
 
 
-
 const HomeScreen = ({navigation}) =>
 {
-    
     const [inputVal, setInputVal] = useState("")
     const [confirmed, setConfirmed] = useState(false)
     const [savedVal, setSavedVal] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [buttonLayout, setButtonLayout] = useState(Dimensions.get("window").width / 4);
 
-
-
-    //Runs whenever Dimensions changes and updates state
+    //Runs whenever Dimensions changes and updates state and rerenders
     //Used for fixing orientation changes and layout change
     //Dimensions runs only once in app lifecycle
     useEffect(() => {
@@ -63,7 +61,7 @@ const HomeScreen = ({navigation}) =>
         return <AppLoading
             startAsync={fetchFonts}
             onFinish={() => { setIsLoading(false) }}
-            onError = {(error) => console.log(error)}
+            onError = {error => console.log(error)}
         />
     }
 
@@ -72,7 +70,7 @@ const HomeScreen = ({navigation}) =>
     const inputHandler = (inputText) =>
     {
         setInputVal(inputText.replace(/[^0-9]/g, ""))
-    };
+    }
 
     //Reset Number
     const resetHandler = () =>
@@ -98,30 +96,21 @@ const HomeScreen = ({navigation}) =>
 
     let confirmedNumber; //Empty Confirmed number declared
     
-    navigation.addListener('willFocus', () => {
-        setConfirmed(false);
-    }
-    )
+    navigation.addListener('willFocus', () => setConfirmed(false) )
 
 	
     if (confirmed)
     {
         confirmedNumber = <ChosenNumber
             value={savedVal}
-            nav={() => {
-                navigation.navigate('Game', {userChoice: savedVal})
-            }}
+            nav={() => navigation.navigate('Game', {userChoice: savedVal})}
         />
     }
 
     return (
      <ScrollView>
       <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30}>
-       <TouchableWithoutFeedback
-        onPress={() => {
-         Keyboard.dismiss();
-        }}
-       >
+       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss() }>
         <View style={styles.containerView}>
          <Text style={styles.headerText}> Start the Game </Text>
 
@@ -140,7 +129,7 @@ const HomeScreen = ({navigation}) =>
            keyboardType="number-pad"
            blurOnSubmit
            maxLength={2}
-           onChangeText={(inputText) => inputHandler(inputText)}
+           onChangeText={inputText => inputHandler(inputText)}
            value={inputVal}
           />
           <View style={styles.buttonView}>
@@ -187,13 +176,8 @@ const styles = StyleSheet.create({
   marginTop: Dimensions.get("window").height > 600 ? 30 : 10,
   marginBottom: Dimensions.get("window").height > 600 ? 30 : 5,
  },
-//  buttonStyle: {
-//   //   width: "100%",
-//   //   maxWidth: "80%",
-//   width: Dimensions.get("window").width / 4,
-//  },
  cardView: {
-  shadowColor: Colors.primaryColor,
+  shadowColor: Platform.OS === 'android' ? Colors.primaryColor : Colors.secondaryColor,
  },
 });
 

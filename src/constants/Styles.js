@@ -1,4 +1,3 @@
-
 //MARK: --------------------	Global Style	-----------------------
 import { StyleSheet } from 'react-native';
 

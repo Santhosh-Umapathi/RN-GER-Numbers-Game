@@ -10,7 +10,6 @@ const ChosenNumber = (props) =>
 	return (
   <Card style={styles.cardView}>
    <Text style={{ fontSize: 20, fontFamily: "open-sans" }}>
-    {" "}
     Seleted Number
    </Text>
 

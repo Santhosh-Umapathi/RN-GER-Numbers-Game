@@ -20,13 +20,9 @@ const generateRN = (min, max, exclude) =>
   max = Math.floor(max);
   const randomNum = Math.floor(Math.random() * (max - min)) + min;
   if (randomNum === exclude)
-  {
-    return generateRN(min, max, exclude);
-  }
+  { return generateRN(min, max, exclude) }
   else
-  {
-    return randomNum;
-  }
+  { return randomNum }
 };
 
 const GameScreen = ({navigation}) =>
@@ -34,17 +30,14 @@ const GameScreen = ({navigation}) =>
 
   //Getting param from home screen
   const userChoice = navigation.getParam('userChoice');
-
   const initialGuess = generateRN(1, 100, userChoice);
 
   //States
   const [currentRN, setCurrentRN] = useState(initialGuess);
   //const [rounds, setRounds] = useState(0)
   const [pastGuess, setPastGuess] = useState([initialGuess]);
-const [widthLayout, setwidthLayout] = useState(
- Dimensions.get("window").width);
-  const [heightLayout, setheightLayout] = useState(
-    Dimensions.get("window").height);
+  const [widthLayout, setwidthLayout] = useState(Dimensions.get("window").width);
+  const [heightLayout, setheightLayout] = useState(Dimensions.get("window").height);
 
 //Runs whenever Dimensions changes and updates state
 //Used for fixing orientation changes and layout change
@@ -61,8 +54,6 @@ useEffect(() => {
   Dimensions.removeEventListener("change", useLayout);
  };
 })
-
-
 
   //Refs - used to store values even after rerender
   const currentLow = useRef(1);
@@ -83,7 +74,7 @@ useEffect(() => {
       (valueType === "greater" && currentRN > userChoice)
   )
   {
-    Alert.alert("Don 't lie", "No Cheating", [{ text: "Sorry", style: "cancel" }]);
+    Alert.alert("Don't lie", "No Cheating", [{ text: "Sorry", style: "cancel" }]);
     return;
   }
 	 
@@ -139,7 +130,6 @@ useEffect(() => {
         return (
          <View>
           <Text>
-           {" "}
            Round {index + 1} - {item}
           </Text>
          </View>
@@ -162,8 +152,8 @@ useEffect(() => {
     >
      Opponent's Guess
     </Text>
-
-    <Text style={{...styles.textStyleBase, ...Platform.select({ios: styles.textIOS, android:styles.textAndroid})}}>{currentRN}</Text>
+      <Text style={{ ...styles.textStyleBase, ...Platform.select({ios:styles.textIOS, android: styles.textAndroid})}}>{currentRN}
+      </Text>
 
     <Card style={{ marginHorizontal: 60 }}>
      <View style={styles.buttonView}>
@@ -185,11 +175,9 @@ useEffect(() => {
         contentContainerStyle = {styles.flatliststyle}
         renderItem={({item, index}) => 
         {
-          return (
-            <View>
+          return <View>
               <Text> Round {index + 1} - {item}</Text>
             </View>
-          )
         }}
       />
    </View>
@@ -207,10 +195,6 @@ const styles = StyleSheet.create({
   alignItems: "center",
   margin: 10,
  },
- //  buttonStyle: {
- //   width: "100%",
- //   minWidth: "80%",
- //  },
  textStyleBase: {
   fontSize: 30,
   textAlign: "center",
@@ -229,7 +213,7 @@ const styles = StyleSheet.create({
  flatliststyle: {
   alignItems: "center",
   justifyContent: "flex-end",
-  flex: 1,
+  flexGrow: 1,
   marginBottom: 20,
  },
 });
